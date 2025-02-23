@@ -1,7 +1,7 @@
 ARG FROM
 FROM ${FROM} AS builder
 
-COPY --from=ghcr.io/astral-sh/uv:0.5 /uv /usr/local/bin/
+# COPY --from=ghcr.io/astral-sh/uv:0.5 /uv /usr/local/bin/
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update -qq \
     && apt-get upgrade \
@@ -21,7 +21,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
       libxslt-dev \
       pkg-config \
       python3-dev \
-    && /usr/local/bin/uv venv /opt/netbox/venv
+    #&& /usr/local/bin/uv venv /opt/netbox/venv
+    && python3 -m venv /opt/netbox/venv
 
 ARG NETBOX_PATH
 COPY ${NETBOX_PATH}/requirements.txt requirements-container.txt /
